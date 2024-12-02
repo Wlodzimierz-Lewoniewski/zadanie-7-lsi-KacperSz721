@@ -35,12 +35,13 @@ def similarities(docs,query,dim):
             len_query[terms.index(term)] = 1
 
     query_inv = np.linalg.inv(S_dim) @ (U_dim.T @ len_query)
-    cos_sim = np.round(cosine_similarity(query_inv.reshape(1, -1), reduced_matrix.T).flatten(),2)
-    return cos_sim
+    cos_sim = cosine_similarity(query_inv.reshape(1, -1), reduced_matrix.T).flatten()
+    result = np.round(cos_sim, 2)
+    return result
 
 def main():
     docs_n = int(input())
-    docs_list = [input() for i in range(docs_n)]
+    docs_list = [input() for _ in range(docs_n)]
     query = input()
     dim = int(input())
     scores_vector = similarities(docs_list, query, dim)
